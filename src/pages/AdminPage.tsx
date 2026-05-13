@@ -1,3 +1,4 @@
+import React from "react"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import type {BotResponse} from "../types/database"

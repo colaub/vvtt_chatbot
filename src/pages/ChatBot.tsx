@@ -42,6 +42,9 @@ export default function App() {
         }, getTypingDelay(botAnswer))
     }
 
+    if (loading) return <div className="app-loading">Loading...</div>
+    if (error) return <div className="app-error">{error}</div>
+
     return (
         <div className="chat-wrapper">
             <div className="app">

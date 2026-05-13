@@ -89,30 +89,6 @@ interface BotConfig {
     maxMessages?: number;
 }
 
-interface BotAnswer {
-    keywords: string[];
-    message: string;
-}
-
-const botAnswers: BotAnswer[] = [
-    {
-        keywords: ["hello", "bonjour", "hi", "salut", "hey", "yoyo", "yo"],
-        message: "Hello! How can I help you?",
-    },
-    {
-        keywords: ["drink", "beer"],
-        message: "Sure! you have to drink beers!",
-    },
-    {
-        keywords: ["merci", "thanks", "thx"],
-        message: "You're welcome!",
-    },
-    {
-        keywords: ["sarko"],
-        message: "merci",
-    },
-]
-
 const defaultBotAnswer = "I don't know what you want... but let's drink a beer!🍻"
 
 export const botConfig: BotConfig = {

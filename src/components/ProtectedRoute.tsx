@@ -1,3 +1,4 @@
+import React from "react"
 import { useState } from "react"
 
 const ADMIN_PASSWORD = "vvtt-sept"  // ← ton mot de passe hardcodé

@@ -1,3 +1,4 @@
+import React from "react"
 import { Routes, Route } from "react-router-dom"
 import ChatBot from "./pages/ChatBot"
 import AdminPage from "./pages/AdminPage"

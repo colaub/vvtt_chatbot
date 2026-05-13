@@ -1,0 +1,467 @@
+/* ================================
+   RESET & VARIABLES
+   ================================ */
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root{
+  --white: #fff;
+  --black: #000;
+  --color-primary: #6c63ff;
+  --color-primary-dark: #554fd8;
+  --color-bg: #1e1e2e;
+  --color-surface: #2a2a3d;
+  --color-surface-light: #3a3a52;
+  --color-text: #ffffff;
+  --color-text-muted: #a0a0b8;
+  --color-bot-bubble: #3c378c;
+  --color-user-bubble: #6c63ff;
+
+  --radius-bubble: 18px;
+  --radius-input: 24px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+
+  --font-main: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;  /* ← plus de centrage vertical */
+  justify-content: center;
+}
+
+/* ================================
+   LAYOUT
+   ================================ */
+
+/* APP — mobile first */
+.app {
+  display: grid;
+  grid-template-rows: 70px 1fr 80px;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-surface);
+  overflow: hidden;
+}
+
+/* APP — desktop */
+@media (min-width: 768px) {
+  .app {
+    width: 420px;
+    height: 680px;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.chat-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ================================
+   HEADER
+   ================================ */
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: 0 var(--spacing-md);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-surface-light);
+}
+
+.chat-header__avatar {
+  font-size: 2rem;
+}
+
+.chat-header__name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.chat-header__status {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.chat-header__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+
+/* ================================
+   CHAT MAIN
+   ================================ */
+
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  overflow-y: auto;
+}
+
+.message {
+  max-width: 75%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-bubble);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.message--bot {
+  background-color: var(--color-bot-bubble);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.message--user {
+  background-color: var(--color-user-bubble);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+/* ================================
+   TYPING INDICATOR
+   ================================ */
+
+.message--typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.typing-dot {
+  width: 4px;
+  height: 4px;
+  background-color: var(--color-text-muted);
+  border-radius: 50%;
+  animation: typing-bounce 1.2s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-3px); }
+}
+
+
+/* ================================
+   FOOTER / INPUT BAR
+   ================================ */
+
+.chat-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 0 var(--spacing-md);
+  border-top: 1px solid var(--color-surface-light);
+}
+
+.chat-footer__input {
+  flex: 1;
+  background-color: var(--color-surface-light);
+  border: none;
+  border-radius: var(--radius-input);
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.chat-footer__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.chat-footer__input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chat-footer__button {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  border: none;
+  border-radius: var(--radius-input);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.9rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.chat-footer__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chat-footer__button:not(:disabled):hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* ================================
+   ADMIN
+   ================================ */
+
+.admin {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  min-height: 100vh;
+  align-self: flex-start;
+  width: 100%;
+  overflow: auto;  /* ← ajoute ça */
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-surface-light);
+}
+
+.admin-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.admin-header__back {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.admin-header__back:hover {
+  text-decoration: underline;
+}
+
+/* FORMULAIRE */
+.admin-form {
+  background-color: var(--color-surface);
+  border-radius: 12px;
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.admin-form h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-input,
+.admin-textarea {
+  background-color: var(--color-surface-light);
+  border: none;
+  border-radius: 8px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-family: var(--font-main);
+  outline: none;
+  width: 100%;
+}
+
+.admin-input:focus-visible,
+.admin-textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.admin-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.admin-form__actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+/* BOUTONS */
+.admin-btn {
+  border: none;
+  border-radius: 8px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.admin-btn:hover {
+  opacity: 0.85;
+}
+
+.admin-btn--primary {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+.admin-btn--secondary {
+  background-color: var(--color-surface-light);
+  color: var(--color-text);
+}
+
+.admin-btn--danger {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.admin-btn--small {
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  background-color: var(--color-surface-light);
+  color: var(--color-text);
+}
+
+/* LISTE */
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.admin-list h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* CARDS */
+.admin-card {
+  background-color: var(--color-surface);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.admin-card--inactive {
+  opacity: 0.5;
+}
+
+.admin-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  flex: 1;
+}
+
+.admin-card__pattern {
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  background-color: var(--color-surface-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.admin-card__response {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.admin-card__actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.admin-card__badge {
+  font-size: 0.75rem;
+  background-color: rgba(229, 62, 62, 0.2);
+  color: #e53e3e;
+  padding: 2px 8px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+
+/* ERREUR */
+.admin-error {
+  background-color: rgba(229, 62, 62, 0.1);
+  border: 1px solid #e53e3e;
+  color: #e53e3e;
+  padding: var(--spacing-md);
+  border-radius: 8px;
+  margin-bottom: var(--spacing-md);
+}
+
+
+/* ================================
+   LOGIN
+   ================================ */
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.login-card {
+  background-color: var(--color-surface);
+  border-radius: 16px;
+  padding: var(--spacing-lg);
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.login-card__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.login-card__subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.login-card__error {
+  background-color: rgba(229, 62, 62, 0.1);
+  border: 1px solid #e53e3e;
+  color: #e53e3e;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
